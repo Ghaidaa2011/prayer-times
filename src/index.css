@@ -1,0 +1,32 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  background-color: #191b1f;
+  color: white;
+  font-family: IBM;
+}
+@font-face {
+  font-family: IBM;
+  src: url("/public/fonts/IBMPlexSansArabic-Regular.ttf");
+  font-weight: normal;
+}
+@font-face {
+  font-family: Alexandria;
+  src: url("/public/fonts/IBMPlexSansArabic-SemiBold.ttf");
+  font-weight: 600;
+}
+@font-face {
+  font-family: Alexandria;
+  src: url("/public/fonts/IBMPlexSansArabic-Bold.ttf");
+  font-weight: bold;
+}
+@font-face {
+  font-family: Alexandria;
+  src: url("/public/fonts/IBMPlexSansArabic-Light.ttf");
+  font-weight: 300;
+}
