@@ -46,7 +46,11 @@ const SelectCity = memo(({ selectCity }: ISelectedCity) => {
     </MenuItem>
   ));
   return (
-    <Stack direction={"row"} justifyContent={"center"}>
+    <Stack
+      direction={"row"}
+      justifyContent={"center"}
+      sx={{ marginBottom: "5vh" }}
+    >
       <FormControl sx={{ width: { xs: "70%", sm: "50%", md: "30%" } }}>
         <InputLabel
           id="demo-simple-select-label"
