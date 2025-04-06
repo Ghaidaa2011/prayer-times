@@ -11,35 +11,31 @@ const useNextPrayerCounter = (timings: ITimings) => {
     const prayers = [
       {
         name: "الفجر",
-        time: timings.Fajr,
+
         originalTime: moment(timings.Fajr, "h:mm A").format("HH:mm"),
       },
       {
         name: "الظهر",
-        time: timings.Dhuhr,
         originalTime: moment(timings.Dhuhr, "h:mm A").format("HH:mm"),
       },
       {
         name: "العصر",
-        time: timings.Asr,
         originalTime: moment(timings.Asr, "h:mm A").format("HH:mm"),
       },
       {
         name: "المغرب",
-        time: timings.Maghrib,
         originalTime: moment(timings.Maghrib, "h:mm A").format("HH:mm"),
       },
       {
         name: "العشاء",
-        time: timings.Isha,
         originalTime: moment(timings.Isha, "h:mm A").format("HH:mm"),
       },
     ];
-
+    //Calls updateCountdown immediately
+    //  to set the initial values for nextPrayerName and timer.
     const updateCountdown = () => {
       const now = moment();
       const todayDate = moment().format("YYYY-MM-DD");
-
       let nextPrayer = null;
       let nextPrayerMoment = null;
 
@@ -55,10 +51,12 @@ const useNextPrayerCounter = (timings: ITimings) => {
           break;
         }
       }
-
+      //*espial case for FAJR
+      //If the current time is
+      //  after all prayer times for today (e.g., after Isha),
+      //  the loop won’t set nextPrayer, triggering this if block.
       if (!nextPrayer) {
-        //when the loop is over
-        nextPrayer = prayers[0]; //AlFajr
+        nextPrayer = prayers[0]; //Fajr
         //This line calculates the exact moment (date and time)
         //  of the next Fajr prayer, which will occur tomorrow.
         nextPrayerMoment = moment(
@@ -72,6 +70,7 @@ const useNextPrayerCounter = (timings: ITimings) => {
       setNextPrayerName(nextPrayer.name);
 
       const diff = nextPrayerMoment?.diff(moment());
+
       if (diff && diff <= 0) {
         setTimer("00:00:00");
         return;
@@ -89,7 +88,11 @@ const useNextPrayerCounter = (timings: ITimings) => {
 
     const counter = setInterval(updateCountdown, 1000);
     return () => clearInterval(counter);
+
+    //The effect reruns whenever timings changes
+    //(e.g., when a new city’s prayer times are loaded)
   }, [timings]);
+
   return { nextPrayerName, timer };
 };
 export default useNextPrayerCounter;

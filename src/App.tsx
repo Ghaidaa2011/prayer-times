@@ -37,16 +37,17 @@ function App() {
           `https://api.aladhan.com/v1/timingsByCity?country=EG&city=${selectedCity.apiName}`
         );
         const apiTimings = response.data.data.timings;
-        // Convert 24-hour format to 12-hour format with Arabic AM/PM
-        const convertedTimings = {
-          Fajr: moment(apiTimings.Fajr, "HH:mm").format("h:mm A"),
-          Sunrise: moment(apiTimings.Sunrise, "HH:mm").format("h:mm A"),
-          Dhuhr: moment(apiTimings.Dhuhr, "HH:mm").format("h:mm A"),
-          Asr: moment(apiTimings.Asr, "HH:mm").format("h:mm A"),
-          Maghrib: moment(apiTimings.Maghrib, "HH:mm").format("h:mm A"),
-          Isha: moment(apiTimings.Isha, "HH:mm").format("h:mm A"),
-        };
-        setTimings(convertedTimings);
+        // // Convert 24-hour format to 12-hour format with Arabic AM/PM
+        // const convertedTimings = {
+        //   Fajr: moment(apiTimings.Fajr, "HH:mm").format("h:mm A"),
+        //   Sunrise: moment(apiTimings.Sunrise, "HH:mm").format("h:mm A"),
+        //   Dhuhr: moment(apiTimings.Dhuhr, "HH:mm").format("h:mm A"),
+        //   Asr: moment(apiTimings.Asr, "HH:mm").format("h:mm A"),
+        //   Maghrib: moment(apiTimings.Maghrib, "HH:mm").format("h:mm A"),
+        //   Isha: moment(apiTimings.Isha, "HH:mm").format("h:mm A"),
+        // };
+        // setTimings(convertedTimings);
+        setTimings(apiTimings);
       } catch (error) {
         console.error("Error fetching prayer timings with axios:", error);
       }
@@ -65,6 +66,7 @@ function App() {
   }, []);
 
   const { nextPrayerName, timer } = useNextPrayerCounter(timings);
+
   return (
     <Container maxWidth="lg">
       <Header
